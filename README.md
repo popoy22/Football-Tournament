@@ -1,4 +1,4 @@
-# Football-Tournament
+# Football Tournament PWA
 PWA for one day tournament using Angular and Ionic Framework
 
 ## Ionic Framework
