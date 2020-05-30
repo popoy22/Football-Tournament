@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Tournaments
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-lg="4" offset-lg="4">
+        <ion-list *ngIf="leagues">
+          <ion-item-group *ngFor="let l of leagues | keyvalue : returnZero">
+            <ion-item-divider color="medium">
+              <ion-label>
+                {{l.value.name}}
+              </ion-label>
+            </ion-item-divider>
+            <ion-item
+              *ngFor="let d of l.value.divisions | keyvalue : returnZero"
+              detail
+              [routerLink]="['/tournament/index/' + d.value.id]"
+              ><ion-label>{{d.value.division}}</ion-label></ion-item
+            >
+          </ion-item-group>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

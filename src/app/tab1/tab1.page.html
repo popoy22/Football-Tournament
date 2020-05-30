@@ -1,0 +1,76 @@
+<ion-header [translucent]="true" *ngIf="navTitle">
+  <ion-toolbar color="primary">
+    <ion-title>
+      <p class="ion-text-wrap">
+        {{navTitle}}
+      </p>
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar mode="ios">
+    <ion-segment [(ngModel)]="segment" mode="ios">
+      <ion-segment-button value="fixture" mode="ios">
+        <ion-label>Fixtures</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="leaguetable" mode="ios">
+        <ion-label>Standing</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-spinner *ngIf="!fixtures"></ion-spinner>
+
+  <ion-grid *ngIf="segment == 'fixture'">
+    <ion-row>
+      <ion-col size-lg="4" offset-lg="4">
+        <ion-card *ngFor="let f of fixtures | keyvalue">
+          <ion-card-content>
+            <ion-grid>
+              <ion-row class="ion-justify-content-center">
+                <ion-col class="ion-align-self-center">
+                  <div>
+                    <p class="ion-text-start">{{f.value.home}}</p>
+                  </div>
+                </ion-col>
+
+                <ion-col class="ion-align-self-center">
+                  <div [innerHTML]="f.value.center_text"></div>
+                </ion-col>
+
+                <ion-col class="ion-align-self-center">
+                  <div>
+                    <p class="ion-text-end">{{f.value.away}}</p>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="segment == 'leaguetable'">
+    <ion-row>
+      <ion-col size-lg="8" offset-lg="2">
+        <div>
+          <ngx-datatable
+            class="bootstrap expandable"
+            [rows]="rows"
+            [columns]="columns"
+            [columnMode]="ColumnMode.force"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="50"
+            [reorderable]="reorderable"
+            [scrollbarV]="true"
+            [scrollbarH]="true"
+            [sorts]="[{prop: 'pts', dir: 'desc'}]"
+          >
+          </ngx-datatable>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
